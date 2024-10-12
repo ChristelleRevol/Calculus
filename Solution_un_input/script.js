@@ -42,10 +42,7 @@ let nombre1 = 0;
 let nombre2 = 0;
 let currentNumber = 1;
 const multiply = (num1, num2) => num1 * num2;
-
-//let multiplyregex = new RegExp("[0-9]+\\*[0-9]+");
-let num1 = new RegExp("[0-9]+");
-let num2 = new RegExp("[0-9]+");
+const divide = (num1, num2) => num1 / num2;
 
 const inputlinehtml = document.getElementById("nombre1");
 
@@ -53,20 +50,21 @@ inputlinehtml.addEventListener("keydown", (event) => {
 	const newCharacter = event.key;
 
 	if (newCharacter === "Enter") {
-		switch (currentNumber) {
-			case 1:
-				nombre1 = inputlinehtml.value;
-				if (inputlinehtml === num1 * num2) {
-					multiply(num1, num2);
-					inputlinehtml.value = `The multiple of ${nombre1} is ${multiply(num1, num2)}!!`;
-				}
-				break;
+		// biome-ignore lint/correctness/noSwitchDeclarations: <explanation>
+		const userinput = inputlinehtml.value;
+		// biome-ignore lint/correctness/noSwitchDeclarations: <explanation>
+		const isMultiplication = userinput.includes("*");
+		// biome-ignore lint/correctness/noSwitchDeclarations: <explanation>
+		const isDivision = userinput.includes("/");
 
-			case 2:
-				nombre1 = 0;
-				nombre2 = 0;
-				currentNumber = 1;
-				inputlinehtml.value = "";
+		if (isMultiplication) {
+			const splitMultiplication = userinput.split(/\*|\//);
+			inputlinehtml.value = `The multiple of ${userinput} is ${multiply(splitMultiplication[0], splitMultiplication[1])}!!`;
+		} else if (isDivision) {
+			const splitDivision = userinput.split(/\*|\//);
+			inputlinehtml.value = `The division of ${userinput} is ${divide(splitDivision[0], splitDivision[1])}`;
+		} else {
+			inputlinehtml.value = "Error";
 		}
 	}
 });
