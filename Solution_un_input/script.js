@@ -43,6 +43,10 @@ let nombre2 = 0;
 let currentNumber = 1;
 const multiply = (num1, num2) => num1 * num2;
 
+//let multiplyregex = new RegExp("[0-9]+\\*[0-9]+");
+let num1 = new RegExp("[0-9]+");
+let num2 = new RegExp("[0-9]+");
+
 const inputlinehtml = document.getElementById("nombre1");
 
 inputlinehtml.addEventListener("keydown", (event) => {
@@ -52,16 +56,13 @@ inputlinehtml.addEventListener("keydown", (event) => {
 		switch (currentNumber) {
 			case 1:
 				nombre1 = inputlinehtml.value;
-				currentNumber = 2;
-				inputlinehtml.value = "";
+				if (inputlinehtml === num1 * num2) {
+					multiply(num1, num2);
+					inputlinehtml.value = `The multiple of ${nombre1} is ${multiply(num1, num2)}!!`;
+				}
 				break;
+
 			case 2:
-				console.log("pipou");
-				nombre2 = inputlinehtml.value;
-				inputlinehtml.value = `The multiple of ${nombre1} and ${nombre2} is ${multiply(nombre1, nombre2)}!!`;
-				currentNumber = 3;
-				break;
-			case 3:
 				nombre1 = 0;
 				nombre2 = 0;
 				currentNumber = 1;
